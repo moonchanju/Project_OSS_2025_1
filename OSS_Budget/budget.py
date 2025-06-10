@@ -49,9 +49,35 @@ class Budget:
 
         print("--- 전체 지출 내역 ---")
         for expense in self.expenses:
-            print(expense) # Uses the __str__ method of the Expense class
+            print(expense)
         print("---------------------\n")
 
     def total_spent(self):
         total = sum(e.amount for e in self.expenses)
         print(f"총 지출: {total}원\n")
+
+    def budget_summary(self):
+        """
+        Displays a summary of all set budgets,
+        including how much has been spent and how much remains for each category.
+        Also shows overall budget and spending totals.
+        """
+        print("--- 전체 예산 요약 ---")
+        if not self.budgets:
+            print("설정된 예산이 없습니다.\n")
+            return
+
+        total_budget_amount = 0
+        total_spent_across_budgets = 0
+
+        for category, limit in self.budgets.items():
+            spent_in_category = sum(e.amount for e in self.expenses if e.category == category)
+            remaining = limit - spent_in_category
+            print(f"- {category}: 예산 {limit}원, 사용 {spent_in_category}원, 남은 금액 {remaining}원")
+            total_budget_amount += limit
+            total_spent_across_budgets += spent_in_category
+
+        print("----------------------")
+        print(f"총 설정 예산: {total_budget_amount}원")
+        print(f"총 예산 사용 금액: {total_spent_across_budgets}원")
+        print(f"총 남은 예산: {total_budget_amount - total_spent_across_budgets}원s\n")

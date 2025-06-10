@@ -10,7 +10,8 @@ def main():
         print("2. 지출 목록 보기")
         print("3. 총 지출 보기")
         print("4. 예산 설정")
-        print("5. 종료")
+        print("5. 전체 예산 요약 보기") # New option
+        print("6. 종료")
         choice = input("선택 > ")
 
         if choice == "1":
@@ -38,7 +39,10 @@ def main():
                 continue
             budget.set_budget(category, amount)
 
-        elif choice == "5":
+        elif choice == "5": # New logic for option 5
+            budget.budget_summary()
+
+        elif choice == "6":
             print("가계부를 종료합니다.")
             break
 
